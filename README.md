@@ -5,7 +5,7 @@
 
 ## 📁 Getting Started
 - Make sure you have Python3 installed and ready.
-- Install the Scapy library. You can use this guide to do so https://scapy.readthedocs.io/en/latest/installation.html#installing-scapy-v2-x.
+- Install the Scapy library. You can use [this](https://scapy.readthedocs.io/en/latest/installation.html#installing-scapy-v2-x) guide to do so.
 - Packet sniffing requires root privilages, make sure you run main.py with `sudo` on Linux.
   
 
