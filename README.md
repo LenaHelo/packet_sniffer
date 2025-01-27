@@ -18,7 +18,7 @@
 
 
 ## 👷‍♀️ Future Features
- Packet Sniiffer is still a work in progress, here's a few features to expect in the future:
+ Packet Sniffer is still a work in progress, here's a few features to expect in the future:
 1. **Costomization**: Soon you will be able to specify which type of packets you would like to monitor. Specefications might include: *destination and source IP adresses, protocols, number of packets to capture* and many more. 
 2. **Geo-Representation:** This feature will allow you to have visual representation of the packets paths on a map.
    
