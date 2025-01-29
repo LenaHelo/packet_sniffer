@@ -1,0 +1,5 @@
+future==1.0.0
+numpy==2.2.2
+scapy==2.6.1
+tableprint==0.9.1
+wcwidth==0.2.13
