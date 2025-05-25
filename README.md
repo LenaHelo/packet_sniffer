@@ -13,7 +13,7 @@
 
 ## 🐡 Features
 - **Non-stop asyncronous sniffing** which allows you to start and stop sniffing as desired.
-- **Clean representtion** of the captured packets, where you can clearly see important details about them.
+- **Clean representation** of the captured packets, where you can clearly see important details about them.
 
 
 
