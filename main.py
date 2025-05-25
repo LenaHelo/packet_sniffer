@@ -1,26 +1,41 @@
 import signal
 from scapy.all import *
 import numpy as np
+from datetime import datetime
 
 conf.debug_dissector = True
 sys.path.insert(0, r"./.venv/lib/python3.10/site-packages")
 import tableprint as tp
 
-table_width = 20
+table_width = 30
 
 
-def ParseSummary(summary):
-    sum_list = summary.split("/")
-    #print(sum_list)
-    """ row = [
-        sum_list[0],
-        sum_list[1],
-        (sum_list[2].split())[0],
-        (sum_list[2].split())[1],
-        (sum_list[2].split())[3],
-    ]"""
-    #print(tp.row(row, width=table_width))
-    print (summary)
+def parsePacket(pckt):
+    print(datetime.now().strftime("%H:%M:%S") ,end='    ')  # current date and time
+    layer = pckt
+#    print(pckt.summary())
+
+    while layer:
+        print(f"{layer.name}", end='    ')
+        if layer.name == "IPv6" or layer.name == "IP":
+            print(f"{layer.fields['src']} -> {layer.fields['dst']}" , end='   ')
+
+        elif layer.name == "ARP":
+            if(layer.fields['op'] == 1):
+                print(f"who has {layer.fields['pdst']}? tell {layer.fields['psrc']}", end = '    ')
+            else:
+                print(f"reply: {layer.fields['psrc']} is at {layer.fields['hwsrc']}",
+                    end='    ')
+
+        """ elif layer.name == "DNS":
+            if layer.fields['qr'] == 0: #query
+                print(f" Query:{layer.fields['dnsqr'].qname.decode()}")
+            else: #reply
+        """
+
+        layer = layer.payload
+    print ("\n")
+
 
 def welcomeMsg():
     tp.banner("Welcome To Packet Sniffer", width=20, style="fancy_grid")
@@ -32,21 +47,21 @@ def welcomeMsg():
 def printHeader():
     print(
         tp.header(
-            ["Data-Link", "Internet", "Transport", "Src IP", "Dest IP"],
+            ["Time", "Protocol Stack", "Info"],
             width=table_width,
         )
     )
 
 
 def printFooter():
-    print(tp.bottom(n=5, width=table_width))
+    print(tp.bottom(n=3, width=table_width))
     print("\n*****Sniffing Stopped*****")
 
 
 
 def main():
     flag = True
-    sniffer = AsyncSniffer(prn=lambda x: ParseSummary(x.summary()))
+    sniffer = AsyncSniffer(prn=parsePacket)
 
     def CHandler(signal, frame):
         sniffer.stop()
